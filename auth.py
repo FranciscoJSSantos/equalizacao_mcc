@@ -11,6 +11,10 @@ _SCOPES = "openid email profile"
 
 
 def _cfg():
+    missing = [k for k in ("GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "REDIRECT_URI") if k not in st.secrets]
+    if missing:
+        st.error(f"Secrets ausentes no Streamlit Cloud: {', '.join(missing)}\nConfigure em Settings → Secrets.")
+        st.stop()
     return {
         "client_id": st.secrets["GOOGLE_CLIENT_ID"],
         "client_secret": st.secrets["GOOGLE_CLIENT_SECRET"],
