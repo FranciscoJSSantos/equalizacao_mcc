@@ -7,11 +7,16 @@ import sys
 
 st.set_page_config(page_title="Equalização MCC", layout="wide")
 
+st.write("✅ App carregado")
+
 try:
     from auth import require_auth, logout
+    st.write("✅ auth.py importado")
     user = require_auth()
 except Exception as _e:
-    st.error(f"Erro ao inicializar autenticação: {_e}")
+    st.error(f"Erro: {_e}")
+    import traceback
+    st.code(traceback.format_exc())
     st.stop()
 
 with st.sidebar:
