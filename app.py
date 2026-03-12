@@ -5,11 +5,14 @@ import io
 import os
 import sys
 
-from auth import require_auth, logout
-
 st.set_page_config(page_title="Equalização MCC", layout="wide")
 
-user = require_auth()
+try:
+    from auth import require_auth, logout
+    user = require_auth()
+except Exception as _e:
+    st.error(f"Erro ao inicializar autenticação: {_e}")
+    st.stop()
 
 with st.sidebar:
     st.markdown(f"**{user['name']}**")
